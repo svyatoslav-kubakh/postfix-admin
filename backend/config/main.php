@@ -16,17 +16,23 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
-        'user' => [
-            'identityClass' => 'common\models\User',
-            'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => getenv('DB_DSN'),
+            'username' => getenv('DB_USERNAME'),
+            'password' => getenv('DB_PASSWORD'),
+            'tablePrefix' => getenv('DB_TABLE_PREFIX'),
+            'charset' => 'utf8',
+            'enableSchemaCache' => true,
+            'schemaCacheDuration' => 3600,
+            'schemaCache' => 'cache',
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
             'name' => 'advanced-backend',
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => getenv('YII_DEBUG') ? 3 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
@@ -37,14 +43,11 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
+        'user' => [
+            'identityClass' => 'common\models\User',
+            'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
         ],
-        */
     ],
     'params' => $params,
 ];

@@ -10,7 +10,7 @@ composer.phar
 # Composer vendor dir
 /vendor
 # Composer index file
-.composer
+/composer.lock
 
 # Phpunit itself is not needed
 phpunit.phar
