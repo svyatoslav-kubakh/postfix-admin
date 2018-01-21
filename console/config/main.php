@@ -16,12 +16,30 @@ return [
         '@npm'   => '@vendor/npm-asset',
     ],
     'controllerMap' => [
+        'migrate' => [
+            'class' => 'yii\console\controllers\MigrateController',
+            'migrationPath' => null, // disable non-namespaced migrations if app\migrations is listed below
+            'migrationNamespaces' => [
+                'console\migrations',
+            ],
+        ],
         'fixture' => [
             'class' => 'yii\console\controllers\FixtureController',
             'namespace' => 'common\fixtures',
           ],
     ],
     'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => getenv('DB_DSN'),
+            'username' => getenv('DB_USERNAME'),
+            'password' => getenv('DB_PASSWORD'),
+            'tablePrefix' => getenv('DB_TABLE_PREFIX'),
+            'charset' => 'utf8',
+            'enableSchemaCache' => true,
+            'schemaCacheDuration' => 3600,
+            'schemaCache' => 'cache',
+        ],
         'log' => [
             'targets' => [
                 [
