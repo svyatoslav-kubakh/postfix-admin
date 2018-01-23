@@ -2,8 +2,6 @@
 namespace console\controllers;
 
 use Yii;
-use yii\db\ActiveQuery;
-use yii\i18n\Formatter;
 use yii\console\ExitCode;
 use yii\console\Controller;
 use yii\console\widgets\Table;
@@ -16,35 +14,6 @@ class UsersController extends Controller
 {
     public $defaultAction = 'list';
 
-    public $userName;
-
-    /** @var ActiveQuery */
-    protected $userRepository;
-
-    /** @var Formatter */
-    protected $formatter;
-
-    public function init()
-    {
-        parent::init();
-        $this->userRepository = User::find();
-        $this->formatter = Yii::$app->formatter;
-    }
-
-    public function options($actionID)
-    {
-        return [
-            'userName',
-        ];
-    }
-
-    public function optionAliases()
-    {
-        return [
-            'u' => 'userName',
-        ];
-    }
-
     /**
      * List users
      */
@@ -56,24 +25,44 @@ class UsersController extends Controller
                 return [
                     $user->username,
                     $user->status === User::STATUS_ACTIVE ? 'Active' : '',
-                    $this->formatter->asDatetime($user->updated_at, 'short'),
+                    Yii::$app->formatter
+                        ->asDatetime($user->updated_at, 'short'),
                 ];
-            }, $this->userRepository->all()),
+            }, User::find()->all()),
         ]);
     }
 
     /**
      * Change password
+     * @param string $username User login
+     * @return int
      */
-    public function actionPasswd()
+    public function actionPasswd($username)
     {
-        $user = $this->userRepository
-            ->where([ 'username' => $this->userName ])
+        /** @var User $user */
+        $user = User::find()
+            ->where([ 'username' => $username ])
             ->one();
         if (!$user) {
             $this->stderr("User not found\n");
             return ExitCode::DATAERR;
         }
+        $password = $this->prompt('Please, input new password:', [
+            'required' => true,
+            'validator' => function ($input, &$error) {
+                if (strlen($input) < 6) {
+                    $error = 'Password must be at least 6 characters';
+                    return false;
+                }
+                return true;
+            },
+        ]);
+        $user->setPassword($password);
+        if (!$user->save()) {
+            $this->stderr($user->getFirstError('password'));
+            return ExitCode::DATAERR;
+        }
+        $this->stdout("Successfully changed\n");
         return ExitCode::OK;
     }
 }
