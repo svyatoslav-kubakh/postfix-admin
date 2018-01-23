@@ -32,7 +32,7 @@ return [
             'name' => 'advanced-backend',
         ],
         'log' => [
-            'traceLevel' => getenv('YII_DEBUG') ? 3 : 0,
+            'traceLevel' => YII_DEBUG,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
