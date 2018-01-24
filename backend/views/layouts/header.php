@@ -1,17 +1,23 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 
-/* @var $this \yii\web\View */
-/* @var $content string */
-
-/** @var \common\models\User $user */
+/**
+ * @var \yii\web\View $this
+ * @var \common\models\User $user
+ * @var string $directoryAsset
+ * @var string $content
+ */
 $user = Yii::$app->user->identity;
 
 ?>
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">APP</span><span class="logo-lg">' . Yii::$app->name . '</span>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <a class="logo" href="<?=Url::to(Yii::$app->homeUrl)?>">
+        <span class="logo-mini"><i class="fa fa-envelope-open-o"></i></span>
+        <span class="logo-lg"><i class="fa fa-envelope-open-o"></i> <?=Yii::$app->name?></span>
+    </a>
 
     <nav class="navbar navbar-static-top" role="navigation">
 
@@ -24,16 +30,14 @@ $user = Yii::$app->user->identity;
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                        <i class="fa fa-user-md"></i>
                         <span class="hidden-xs"><?= $user->username ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle"
-                                 alt="User Image"/>
                             <p>
-                                <?= Yii::$app->user->identity->username ?>
+                                <i class="fa fa-user-circle" aria-hidden="true"></i>
                                 <small>Member since <?= date('M. Y', $user->created_at) ?></small>
                             </p>
                         </li>
