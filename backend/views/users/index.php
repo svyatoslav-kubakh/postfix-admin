@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\web\View;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
-use backend\widgets\Button;
+use backend\widgets\ButtonCreate;
 use backend\models\User;
 use backend\models\search\UserSearch;
 use backend\components\grid\ActionColumn;
@@ -20,11 +20,9 @@ $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="document-index">
-    <p><?=Button::widget([
+    <p><?=ButtonCreate::widget([
         'label' => 'Create User',
         'link' => ['create'],
-        'buttonClass' => 'primary',
-        'iconClass' => Button::ICON_ADD,
     ])?></p>
     <?php if (Yii::$app->session->hasFlash('success')) : ?>
         <div class="alert alert-success alert-dismissable">
@@ -43,12 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => EnumColumn::class,
                 'attribute' => 'status',
                 'enum' => [
-                    User::STATUS_ACTIVE => HTML::tag(
-                        'span',
-                        'active',
-                        ['class' => ['label', 'label-success']]
-                    ),
-                    User::STATUS_DELETED => '',
+                    User::STATUS_ACTIVE => HTML::tag('span', 'active', ['class' => ['label', 'label-success']]),
+                    User::STATUS_DELETED => HTML::tag('span', 'inactive', ['class' => ['label', 'label-default']]),
                 ],
                 'format' => 'raw',
             ],

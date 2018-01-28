@@ -21,8 +21,6 @@ use yii\helpers\Url;
  */
 class Button extends BaseButton
 {
-    const ICON_ADD = 'glyphicon glyphicon-plus';
-
     /**
      * @var string | null
      */
@@ -31,7 +29,7 @@ class Button extends BaseButton
     /**
      * @var string | null
      */
-    public $buttonClass = 'default';
+    public $buttonType = 'default';
 
     /**
      * @var string | null
@@ -53,8 +51,8 @@ class Button extends BaseButton
             $this->tagName = 'a';
             $this->options['href'] = Url::to($this->link);
         }
-        if ($this->buttonClass) {
-            Html::addCssClass($this->options, 'btn-'.$this->buttonClass);
+        if ($this->buttonType) {
+            Html::addCssClass($this->options, 'btn-'.$this->buttonType);
         }
         if ($this->iconClass) {
             $this->label = Html::tag('span', '', [

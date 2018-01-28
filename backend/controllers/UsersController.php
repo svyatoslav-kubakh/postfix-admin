@@ -2,17 +2,18 @@
 namespace backend\controllers;
 
 use Yii;
+use backend\models\User;
 use backend\models\search\UserSearch;
 use backend\components\Controller;
 
-/**
- * Site controller
- */
 class UsersController extends Controller
 {
     /**
-     * Displays homepage.
-     *
+     * @var string
+     */
+    protected $modelClass = User::class;
+
+    /**
      * @return string
      */
     public function actionIndex()
@@ -24,7 +25,13 @@ class UsersController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+        ]);
+    }
 
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
         ]);
     }
 }
