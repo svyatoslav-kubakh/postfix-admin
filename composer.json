@@ -2,8 +2,15 @@
     "name": "svyatoslav-kubakh/postfix-admin",
     "description": "Postfix mailer admin interface",
     "keywords": ["yii2", "mailer", "postfix", "admin"],
-    "homepage": "http://kubakh.name/",
+    "authors": [
+        {
+            "name": "Svyatoslav Kubakh",
+            "homepage": "http://kubakh.name",
+            "role": "Developer"
+        }
+    ],
     "type": "project",
+    "version": "0.0.1",
     "license": "BSD-3-Clause",
     "support": {
         "issues": "https://github.com/svyatoslav-kubakh/postfix-admin/issues?state=open",

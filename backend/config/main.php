@@ -13,6 +13,7 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'defaultRoute' => 'site',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
@@ -36,8 +37,7 @@ return [
             'schemaCache' => 'cache',
         ],
         'session' => [
-            // this is the name of the session cookie used for login on the backend
-            'name' => 'advanced-backend',
+            'name' => 'backend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG,
@@ -47,6 +47,11 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'baseUrl' => getenv('BASE_URL'),
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

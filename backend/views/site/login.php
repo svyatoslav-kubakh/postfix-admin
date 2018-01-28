@@ -21,7 +21,7 @@ $fieldOptions2 = [
 
 <div class="login-box">
     <div class="login-logo">
-        Postfix Admin
+        <i class="fa fa-envelope-open-o"></i> Postfix Admin
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
