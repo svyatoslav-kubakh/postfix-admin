@@ -1,6 +1,6 @@
 <?php
-use yii\helpers\Html;
 use yii\helpers\Url;
+use backend\widgets\Button;
 
 /**
  * @var \yii\web\View $this
@@ -43,14 +43,17 @@ $user = Yii::$app->user->identity;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <?= Button::widget([
+                                    'label' => 'Profile',
+                                    'link' => ['/users/view', 'id' => $user->id],
+                                ]) ?>
                             </div>
                             <div class="pull-right">
-                                <?= Html::a(
-                                    'Sign out',
-                                    ['/site/logout'],
-                                    ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']
-                                ) ?>
+                                <?= Button::widget([
+                                    'label' => 'Sign out',
+                                    'link' => ['/site/logout'],
+                                    'options' => ['data-method' => 'post'],
+                                ]) ?>
                             </div>
                         </li>
                     </ul>
