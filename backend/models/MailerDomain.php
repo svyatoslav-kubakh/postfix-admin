@@ -5,12 +5,13 @@ use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "mailer_domains".
- *
  * @property int $id
  * @property string $name
  */
 class MailerDomain extends ActiveRecord
 {
+    const DOMAIN_PATTERN = '/^(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i';
+
     /**
      * @inheritdoc
      */
@@ -27,7 +28,16 @@ class MailerDomain extends ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 50],
+            [['name'], 'match', 'pattern' => self::DOMAIN_PATTERN],
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDeleteAllowed()
+    {
+        return true;
     }
 
     /**

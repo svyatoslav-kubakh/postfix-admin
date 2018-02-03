@@ -1,30 +1,31 @@
 <?php
 
-use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\DetailView;
+use backend\widgets\ButtonEdit;
+use backend\widgets\ButtonDelete;
+use backend\models\MailerDomain;
 
-/* @var $this yii\web\View */
-/* @var $model backend\models\MailerDomain */
+/**
+ * @var View $this
+ * @var MailerDomain $model
+ */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Mailer Domains', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mailer-domain-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?=ButtonEdit::widget([
+            'link' => ['update', 'id' => $model->id],
+        ])?>
+        <?php if ($model->isDeleteAllowed()) : ?>
+            <?=ButtonDelete::widget([
+                'link' => ['delete', 'id' => $model->id],
+        ])?>
+        <?php endif; ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -32,5 +33,4 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
         ],
     ]) ?>
-
 </div>

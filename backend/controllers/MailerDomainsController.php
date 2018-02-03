@@ -1,5 +1,4 @@
 <?php
-
 namespace backend\controllers;
 
 use Yii;
@@ -7,7 +6,6 @@ use backend\models\MailerDomain;
 use backend\models\search\MailerDomainSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * MailerDomainController implements the CRUD actions for MailerDomain model.
@@ -15,19 +13,9 @@ use yii\filters\VerbFilter;
 class MailerDomainsController extends Controller
 {
     /**
-     * @inheritdoc
+     * @var string
      */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+    protected $modelClass = MailerDomain::class;
 
     /**
      * Lists all MailerDomain models.
@@ -63,11 +51,9 @@ class MailerDomainsController extends Controller
     public function actionCreate()
     {
         $model = new MailerDomain();
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -83,11 +69,9 @@ class MailerDomainsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -103,23 +87,6 @@ class MailerDomainsController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
-    }
-
-    /**
-     * Finds the MailerDomain model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return MailerDomain the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = MailerDomain::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
