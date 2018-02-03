@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php echo DetailView::widget([
         'model' => $model,
         'attributes' => [
+            'id',
             [
                 'value' => $model->status === User::STATUS_ACTIVE
                     ? HTML::tag('span', 'active', ['class' => ['label', 'label-success']])

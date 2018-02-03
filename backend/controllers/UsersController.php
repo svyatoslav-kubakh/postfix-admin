@@ -34,4 +34,11 @@ class UsersController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+
+    public function actionUpdate($id)
+    {
+        return $this->render('update', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 }
