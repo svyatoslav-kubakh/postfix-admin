@@ -29,6 +29,7 @@ class MailerDomain extends ActiveRecord
             [['name'], 'required'],
             [['name'], 'string', 'max' => 50],
             [['name'], 'match', 'pattern' => self::DOMAIN_PATTERN],
+            [['name'], 'unique'],
         ];
     }
 

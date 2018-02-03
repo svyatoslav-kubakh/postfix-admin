@@ -23,6 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if ($model->isDeleteAllowed()) : ?>
             <?=ButtonDelete::widget([
                 'link' => ['delete', 'id' => $model->id],
+                'options' => ['data-method' => 'post'],
         ])?>
         <?php endif; ?>
     </p>

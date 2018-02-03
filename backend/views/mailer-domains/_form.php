@@ -1,7 +1,6 @@
 <?php
 
 use yii\web\View;
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\models\MailerDomain;
 use backend\widgets\ButtonSave;
