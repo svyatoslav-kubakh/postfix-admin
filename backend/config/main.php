@@ -17,6 +17,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
+            'baseUrl' => getenv('BASE_URL'),
         ],
         'view' => [
             'theme' => [
@@ -51,7 +52,6 @@ return [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'baseUrl' => getenv('BASE_URL'),
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
