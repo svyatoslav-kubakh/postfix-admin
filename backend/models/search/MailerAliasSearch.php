@@ -18,7 +18,7 @@ class MailerAliasSearch extends MailerAlias
     public function rules()
     {
         return [
-            [['id', 'domain_id'], 'integer'],
+            [['domain_id'], 'integer'],
             [['source', 'destination'], 'safe'],
         ];
     }

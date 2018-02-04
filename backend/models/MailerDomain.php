@@ -21,6 +21,14 @@ class MailerDomain extends ActiveRecord
     }
 
     /**
+     * @return query\MailerDomainQuery
+     */
+    public static function find()
+    {
+        return new query\MailerDomainQuery(get_called_class());
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()

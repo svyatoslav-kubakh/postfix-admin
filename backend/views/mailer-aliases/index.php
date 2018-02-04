@@ -1,36 +1,45 @@
 <?php
 
-use yii\helpers\Html;
+use yii\web\View;
 use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
+use backend\widgets\ButtonCreate;
+use backend\components\grid\ActionColumn;
+use backend\models\search\MailerDomainSearch;
+use backend\components\grid\EnumColumn;
 
-/* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\MailerAliasSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
+/**
+ * @var View $this
+ * @var MailerDomainSearch $searchModel
+ * @var ActiveDataProvider $dataProvider
+ * @var array $domainsList
+ */
 $this->title = 'Mailer Aliases';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mailer-alias-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Mailer Alias', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <p><?=ButtonCreate::widget([
+            'label' => 'Create Alias',
+            'link' => ['create'],
+        ])?></p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'domain_id',
+            [
+                'class' => EnumColumn::class,
+                'attribute' => 'domain_id',
+                'value' => 'domain.name',
+                'enum' => $domainsList,
+                'filter' => $domainsList,
+            ],
             'source',
             'destination',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => ActionColumn::class
+            ],
         ],
     ]); ?>
 </div>

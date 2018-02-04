@@ -1,9 +1,9 @@
 <?php
-
 namespace backend\controllers;
 
 use Yii;
 use backend\models\MailerAlias;
+use backend\models\MailerDomain;
 use backend\models\search\MailerAliasSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
@@ -11,9 +11,15 @@ use yii\filters\VerbFilter;
 
 /**
  * MailerAliasesController implements the CRUD actions for MailerAlias model.
+ * @method MailerAlias findModel($id)
  */
 class MailerAliasesController extends Controller
 {
+    /**
+     * @var string
+     */
+    protected $modelClass = MailerAlias::class;
+
     /**
      * @inheritdoc
      */
@@ -36,11 +42,10 @@ class MailerAliasesController extends Controller
     public function actionIndex()
     {
         $searchModel = new MailerAliasSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $searchModel
+                ->search(Yii::$app->request->queryParams),
         ]);
     }
 
@@ -85,11 +90,9 @@ class MailerAliasesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -105,23 +108,17 @@ class MailerAliasesController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the MailerAlias model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return MailerAlias the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @inheritdoc
      */
-    protected function findModel($id)
+    public function render($view, $params = [])
     {
-        if (($model = MailerAlias::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
+        return parent::render($view, $params + [
+            'domainsList' => MailerDomain::find()
+                ->getListValues(),
+        ]);
     }
 }
