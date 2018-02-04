@@ -10,7 +10,7 @@ use backend\models\MailerDomain;
 
 $this->title = 'Create Mailer  Domain';
 $this->params['breadcrumbs'][] = ['label' => 'Mailer Domains', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Create';
 ?>
 <div class="mailer-domain-create">
     <?= $this->render('_form', [

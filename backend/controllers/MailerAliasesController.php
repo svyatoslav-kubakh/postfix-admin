@@ -56,7 +56,9 @@ class MailerAliasesController extends Controller
         $model = new MailerAlias();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this
+                ->addFlashMessage('Mailer alias created: ' . $model, self::FLASH_SUCCESS)
+                ->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -75,7 +77,9 @@ class MailerAliasesController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this
+                ->addFlashMessage('Mailer alias updated: ' . $model, self::FLASH_SUCCESS)
+                ->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('update', [
             'model' => $model,
@@ -91,7 +95,10 @@ class MailerAliasesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if ($model->delete()) {
+            $this->addFlashMessage('Mailer alias deleted: ' . $model, self::FLASH_WARNING);
+        }
         return $this->redirect(['index']);
     }
 

@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 
 /**
  * MailerDomainController implements the CRUD actions for MailerDomain model.
+ * @method MailerDomain findModel($id)
  */
 class MailerDomainsController extends Controller
 {
@@ -52,7 +53,9 @@ class MailerDomainsController extends Controller
     {
         $model = new MailerDomain();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this
+                ->addFlashMessage('Mailer domain created: ' . $model->name, self::FLASH_SUCCESS)
+                ->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('create', [
             'model' => $model,
@@ -70,7 +73,9 @@ class MailerDomainsController extends Controller
     {
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this
+                ->addFlashMessage('Mailer domain updated: ' . $model->name, self::FLASH_SUCCESS)
+                ->redirect(['view', 'id' => $model->id]);
         }
         return $this->render('update', [
             'model' => $model,
@@ -86,7 +91,10 @@ class MailerDomainsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if ($model->delete()) {
+            $this->addFlashMessage('Mailer domain deleted: ' . $model->name, self::FLASH_WARNING);
+        }
         return $this->redirect(['index']);
     }
 }

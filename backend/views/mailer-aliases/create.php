@@ -10,7 +10,7 @@ use backend\models\MailerAlias;
  */
 $this->title = 'Create Mailer Alias';
 $this->params['breadcrumbs'][] = ['label' => 'Mailer Aliases', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Create';
 ?>
 <div class="mailer-alias-create">
     <?= $this->render('_form', [

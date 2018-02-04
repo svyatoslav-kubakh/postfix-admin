@@ -20,10 +20,12 @@ $this->title = 'Mailer Aliases';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mailer-alias-index">
-    <p><?=ButtonCreate::widget([
-        'label' => 'Create Alias',
-        'link' => ['create'],
-    ])?></p>
+    <p>
+        <?=ButtonCreate::widget([
+            'label' => 'Create Alias',
+            'link' => ['create'],
+        ])?>
+    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,

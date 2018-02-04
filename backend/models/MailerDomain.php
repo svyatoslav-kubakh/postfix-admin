@@ -1,12 +1,15 @@
 <?php
 namespace backend\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "mailer_domains".
  * @property int $id
  * @property string $name
+ * @property MailerAccount[] $accounts
+ * @property MailerAlias[] $aliases
  */
 class MailerDomain extends ActiveRecord
 {
@@ -29,6 +32,22 @@ class MailerDomain extends ActiveRecord
     }
 
     /**
+     * @return ActiveQuery
+     */
+    public function getAccounts()
+    {
+        return $this->hasMany(MailerAccount::class, ['domain_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAliases()
+    {
+        return $this->hasMany(MailerAlias::class, ['domain_id' => 'id']);
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
@@ -46,7 +65,7 @@ class MailerDomain extends ActiveRecord
      */
     public function isDeleteAllowed()
     {
-        return true;
+        return !$this->getAccounts()->count() && !$this->getAliases()->count();
     }
 
     /**
