@@ -1,39 +1,47 @@
 <?php
 
+use yii\web\View;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\widgets\ButtonEdit;
+use backend\widgets\ButtonDelete;
+use backend\models\MailerAccount;
 
-/* @var $this yii\web\View */
-/* @var $model backend\models\MailerAccount */
-
-$this->title = $model->id;
+/**
+ * @var View $this
+ * @var MailerAccount $model
+ */
+$this->title = 'Mailer Account: ' . $model->email;
 $this->params['breadcrumbs'][] = ['label' => 'Mailer Accounts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $model->email;
 ?>
 <div class="mailer-account-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?=ButtonEdit::widget([
+            'link' => ['update', 'id' => $model->id],
+        ])?>
+        <?=ButtonDelete::widget([
+            'link' => ['delete', 'id' => $model->id],
+        ])?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'domain_id',
-            'email:email',
-            'password',
-            'meta',
+            [
+                'attribute' => 'email',
+                'value' => function (MailerAccount $model) {
+                    return Html::a($model->email, 'mailto:'.$model->email);
+                },
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'domain_id',
+                'value' => function (MailerAccount $model) {
+                    return Html::a($model->domain->name, ['/mailer-domains/view', 'id' => $model->domain_id]);
+                },
+                'format' => 'raw',
+            ],
         ],
     ]) ?>
-
 </div>

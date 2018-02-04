@@ -1,21 +1,18 @@
 <?php
 
-use yii\helpers\Html;
-
-
-/* @var $this yii\web\View */
-/* @var $model backend\models\MailerAccount */
+/**
+ * @var $this yii\web\View
+ * @var $model backend\models\MailerAccount
+ * @var array $domainsList
+ */
 
 $this->title = 'Create Mailer Account';
 $this->params['breadcrumbs'][] = ['label' => 'Mailer Accounts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = 'Create'
 ?>
 <div class="mailer-account-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
+        'domainsList' => $domainsList,
     ]) ?>
-
 </div>

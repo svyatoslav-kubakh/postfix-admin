@@ -62,8 +62,7 @@ class MailerAccountSearch extends MailerAccount
         ]);
 
         $query->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'meta', $this->meta]);
+            ->andFilterWhere(['like', 'password', $this->password]);
 
         return $dataProvider;
     }

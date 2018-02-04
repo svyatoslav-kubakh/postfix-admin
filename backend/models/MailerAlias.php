@@ -57,6 +57,9 @@ class MailerAlias extends ActiveRecord
         ];
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->domain->name . ': ' . $this->source . ' => '. $this->destination;

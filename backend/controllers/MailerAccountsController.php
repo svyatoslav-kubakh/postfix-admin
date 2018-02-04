@@ -4,30 +4,21 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\MailerAccount;
+use backend\models\MailerDomain;
 use backend\models\search\MailerAccountSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * MailerAccountsController implements the CRUD actions for MailerAccount model.
+ * @method MailerAccount findModel($id)
  */
 class MailerAccountsController extends Controller
 {
     /**
-     * @inheritdoc
+     * @var string
      */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+    protected $modelClass = MailerAccount::class;
 
     /**
      * Lists all MailerAccount models.
@@ -36,11 +27,10 @@ class MailerAccountsController extends Controller
     public function actionIndex()
     {
         $searchModel = new MailerAccountSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $searchModel
+                ->search(Yii::$app->request->queryParams),
         ]);
     }
 
@@ -65,11 +55,15 @@ class MailerAccountsController extends Controller
     public function actionCreate()
     {
         $model = new MailerAccount();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $password  = $model->generatePassword();
+            if ($model->save(false)) {
+                $this
+                    ->addFlashMessage('Account created: ' . $model->email, self::FLASH_SUCCESS)
+                    ->addFlashMessage('New password: ' . $password);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -85,11 +79,20 @@ class MailerAccountsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $request = Yii::$app->request;
+        if ($model->load($request->post()) && $model->validate()) {
+            $password = null;
+            if (!empty($request->post($model->formName())['password'])) {
+                $password  = $model->generatePassword();
+            }
+            if ($model->save(false)) {
+                $this->addFlashMessage('Account updated: ' . $model->email, self::FLASH_SUCCESS);
+                if ($password) {
+                    $this->addFlashMessage('New password: ' . $password);
+                }
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -104,24 +107,21 @@ class MailerAccountsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        if ($model->delete()) {
+            $this->addFlashMessage('Account deleted: ' . $model->email, self::FLASH_WARNING);
+        }
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the MailerAccount model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return MailerAccount the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
+     * @inheritdoc
      */
-    protected function findModel($id)
+    public function render($view, $params = [])
     {
-        if (($model = MailerAccount::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
+        return parent::render($view, $params + [
+            'domainsList' => MailerDomain::find()
+                ->getListValues(),
+        ]);
     }
 }

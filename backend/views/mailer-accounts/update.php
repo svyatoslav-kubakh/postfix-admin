@@ -1,21 +1,18 @@
 <?php
 
-use yii\helpers\Html;
-
-/* @var $this yii\web\View */
-/* @var $model backend\models\MailerAccount */
-
-$this->title = 'Update Mailer Account: {nameAttribute}';
+/**
+ * @var $this yii\web\View
+ * @var $model backend\models\MailerAccount
+ * @var array $domainsList
+ */
+$this->title = 'Update Mailer Account: ' . $model->email;
 $this->params['breadcrumbs'][] = ['label' => 'Mailer Accounts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->email, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="mailer-account-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
+        'domainsList' => $domainsList,
     ]) ?>
-
 </div>

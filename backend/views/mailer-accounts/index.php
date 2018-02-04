@@ -1,37 +1,50 @@
 <?php
 
+use yii\web\View;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
+use backend\components\grid\ActionColumn;
+use backend\components\grid\EnumColumn;
+use backend\widgets\ButtonCreate;
+use backend\models\MailerAccount;
+use backend\models\search\MailerAccountSearch;
 
-/* @var $this yii\web\View */
-/* @var $searchModel backend\models\search\MailerAccountSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
+/**
+ * @var View $this
+ * @var MailerAccountSearch $searchModel
+ * @var ActiveDataProvider $dataProvider
+ * @var array $domainsList
+ */
 $this->title = 'Mailer Accounts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="mailer-account-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
-        <?= Html::a('Create Mailer Account', ['create'], ['class' => 'btn btn-success']) ?>
+        <?=ButtonCreate::widget([
+            'label' => 'Create Account',
+            'link' => ['create'],
+        ])?>
     </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'domain_id',
             'email:email',
-            'password',
-            'meta',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => EnumColumn::class,
+                'attribute' => 'domain_id',
+                'value' => function (MailerAccount $model) {
+                    return Html::a($model->domain->name, ['/mailer-domains/view', 'id' => $model->domain_id]);
+                },
+                'enum' => $domainsList,
+                'filter' => $domainsList,
+                'format' => 'raw',
+            ],
+            [
+                'class' => ActionColumn::class
+            ],
         ],
     ]); ?>
 </div>

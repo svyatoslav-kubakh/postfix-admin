@@ -1,6 +1,7 @@
 <?php
 namespace backend\components;
 
+use Yii;
 use yii\base\InvalidConfigException;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
@@ -12,6 +13,11 @@ use yii\filters\VerbFilter;
  */
 class Controller extends \yii\web\Controller
 {
+    const FLASH_INFO = 'info';
+    const FLASH_SUCCESS = 'success';
+    const FLASH_WARNING = 'warning';
+    const FLASH_DANGER = 'danger';
+
     /**
      * @var string | null | ActiveRecord
      */
@@ -59,5 +65,18 @@ class Controller extends \yii\web\Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * Adds a flash message.
+     * @param string $message
+     * @param string $key
+     * @return $this
+     */
+    protected function addFlashMessage($message, $key = self::FLASH_INFO)
+    {
+        Yii::$app->session
+            ->addFlash($key, $message);
+        return $this;
     }
 }
