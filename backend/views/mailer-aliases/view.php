@@ -1,6 +1,7 @@
 <?php
 
 use yii\web\View;
+use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\widgets\ButtonEdit;
 use backend\widgets\ButtonDelete;
@@ -30,7 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute' => 'domain_id',
-                'value' => $model->domain->name,
+                'value' => Html::a($model->domain->name, ['/mailer-domains/view', 'id' => $model->domain_id]),
+                'format' => 'raw',
             ],
             'source',
             'destination',

@@ -7,7 +7,6 @@ use backend\models\MailerDomain;
 use backend\models\search\MailerAliasSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * MailerAliasesController implements the CRUD actions for MailerAlias model.
@@ -19,21 +18,6 @@ class MailerAliasesController extends Controller
      * @var string
      */
     protected $modelClass = MailerAlias::class;
-
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * Lists all MailerAlias models.
