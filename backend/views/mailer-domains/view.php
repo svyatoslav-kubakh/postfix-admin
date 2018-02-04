@@ -1,6 +1,7 @@
 <?php
 
 use yii\web\View;
+use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\widgets\ButtonEdit;
 use backend\widgets\ButtonDelete;
@@ -31,6 +32,26 @@ $this->params['breadcrumbs'][] = $model->name;
         'attributes' => [
             'id',
             'name',
+            [
+                'attribute' => 'accounts',
+                'value' => function (MailerDomain $model) {
+                    return Html::a(
+                        Html::tag('span', $model->getAccounts()->count(), ['class' => 'badge']),
+                        ['/mailer-accounts', 'MailerAccountSearch' => ['domain_id' => $model->id]]
+                    );
+                },
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'aliases',
+                'value' => function (MailerDomain $model) {
+                    return Html::a(
+                        Html::tag('span', $model->getAliases()->count(), ['class' => 'badge']),
+                        ['/mailer-aliases', 'MailerAliasSearch' => ['domain_id' => $model->id]]
+                    );
+                },
+                'format' => 'raw',
+            ],
         ],
     ]) ?>
 </div>

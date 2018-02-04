@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
+            'username',
             [
                 'value' => $model->status === User::STATUS_ACTIVE
                     ? HTML::tag('span', 'active', ['class' => ['label', 'label-success']])

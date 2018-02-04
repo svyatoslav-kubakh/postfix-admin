@@ -1,15 +1,14 @@
 <?php
 
 use yii\web\View;
-use backend\models\MailerDomain;
 
 /**
  * @var View $this
- * @var MailerDomain $model
+ * @var User $model
  */
 
-$this->title = 'Create Mailer Domain';
-$this->params['breadcrumbs'][] = ['label' => 'Mailer Domains', 'url' => ['index']];
+$this->title = 'Create User';
+$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
 $this->params['breadcrumbs'][] = 'Create';
 ?>
 <div class="mailer-domain-create">

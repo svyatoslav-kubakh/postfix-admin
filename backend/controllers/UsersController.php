@@ -5,7 +5,12 @@ use Yii;
 use backend\models\User;
 use backend\models\search\UserSearch;
 use backend\components\Controller;
+use yii\web\NotFoundHttpException;
 
+/**
+ * MailerDomainController implements the CRUD actions for User model.
+ * @method User findModel($id)
+ */
 class UsersController extends Controller
 {
     /**
@@ -14,7 +19,8 @@ class UsersController extends Controller
     protected $modelClass = User::class;
 
     /**
-     * @return string
+     * Lists all User models.
+     * @return mixed
      */
     public function actionIndex()
     {
@@ -28,6 +34,12 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * Displays a single User model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -35,10 +47,57 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * Creates a new User model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $model = new User();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this
+                ->addFlashMessage('User created: ' . $model->username, self::FLASH_SUCCESS)
+                ->redirect(['view', 'id' => $model->id]);
+        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing User model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
     public function actionUpdate($id)
     {
+        $model = $this->findModel($id);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this
+                ->addFlashMessage('User updated: ' . $model->username, self::FLASH_SUCCESS)
+                ->redirect(['view', 'id' => $model->id]);
+        }
         return $this->render('update', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
+    }
+
+    /**
+     * Deletes an existing User model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDelete($id)
+    {
+        $model = $this->findModel($id);
+        if ($model->delete()) {
+            $this->addFlashMessage('User deleted: ' . $model->username, self::FLASH_WARNING);
+        }
+        return $this->redirect(['index']);
     }
 }

@@ -39,7 +39,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
         ];
     }
 
@@ -49,8 +49,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['status', 'username'], 'required'],
+            [['status'], 'default', 'value' => self::STATUS_ACTIVE],
+            [['status'], 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            [['username'], 'string'],
+            [['username'], 'unique'],
         ];
     }
 
@@ -118,19 +121,22 @@ class User extends ActiveRecord implements IdentityInterface
 
     /**
      * Generates password hash from password and sets it to the model
-     *
      * @param string $password
      */
     public function setPassword($password)
     {
+        if (!$password) {
+            return;
+        }
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**
      * Generates "remember me" authentication key
+     * @return string
      */
     public function generateAuthKey()
     {
-        $this->auth_key = Yii::$app->security->generateRandomString();
+        return Yii::$app->security->generateRandomString();
     }
 }

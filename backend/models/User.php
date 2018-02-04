@@ -15,6 +15,24 @@ class User extends BaseUser
     /**
      * @inheritdoc
      */
+    public function rules()
+    {
+        return array_merge(parent::rules(), [
+            [['password'], 'string', 'min' => 6],
+            [['auth_key'], 'default', 'value' => function () {
+                return $this->generateAuthKey();
+            }],
+        ]);
+    }
+
+    public function getPassword()
+    {
+        return '';
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [
