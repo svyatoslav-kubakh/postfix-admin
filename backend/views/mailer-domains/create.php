@@ -8,7 +8,7 @@ use backend\models\MailerDomain;
  * @var MailerDomain $model
  */
 
-$this->title = 'Create Domain';
+$this->title = 'Create Mailer  Domain';
 $this->params['breadcrumbs'][] = ['label' => 'Mailer Domains', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

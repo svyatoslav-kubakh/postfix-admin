@@ -8,7 +8,7 @@ use backend\models\MailerDomain;
  * @var MailerDomain $model
  */
 
-$this->title = 'Update Domain: ' . $model->name;
+$this->title = 'Update Mailer Domain: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Mailer Domains', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
