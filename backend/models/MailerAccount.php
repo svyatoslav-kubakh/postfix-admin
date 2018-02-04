@@ -2,6 +2,7 @@
 namespace backend\models;
 
 use yii\db\ActiveRecord;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "mailer_users".
@@ -10,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $domain_id
  * @property string $email
  * @property string $password
- * @property string $meta
+ * @property MailerDomain $domain
  */
 class MailerAccount extends ActiveRecord
 {
@@ -32,9 +33,16 @@ class MailerAccount extends ActiveRecord
             [['domain_id'], 'integer'],
             [['email'], 'string', 'max' => 120],
             [['password'], 'string', 'max' => 106],
-            [['meta'], 'string', 'max' => 4000],
             [['email'], 'unique'],
         ];
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getDomain()
+    {
+        return $this->hasOne(MailerDomain::class, ['id' => 'domain_id']);
     }
 
     /**
@@ -44,10 +52,9 @@ class MailerAccount extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'domain_id' => 'Domain ID',
+            'domain_id' => 'Domain',
             'email' => 'Email',
             'password' => 'Password',
-            'meta' => 'Meta',
         ];
     }
 }

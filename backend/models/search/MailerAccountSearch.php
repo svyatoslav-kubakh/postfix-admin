@@ -1,8 +1,6 @@
 <?php
-
 namespace backend\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\MailerAccount;
@@ -18,8 +16,8 @@ class MailerAccountSearch extends MailerAccount
     public function rules()
     {
         return [
-            [['id', 'domain_id'], 'integer'],
-            [['email', 'password', 'meta'], 'safe'],
+            [['domain_id'], 'integer'],
+            [['email'], 'string'],
         ];
     }
 

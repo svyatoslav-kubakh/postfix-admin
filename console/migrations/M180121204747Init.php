@@ -21,7 +21,6 @@ class M180121204747Init extends Migration
             'domain_id' => $this->integer()->notNull(),
             'email' => $this->string(120)->unique()->notNull(),
             'password' => $this->string(106)->notNull(),
-            'meta' => $this->string(4000)->notNull(),
         ], self::TABLE_OPTION);
         $this->createTable('{{%mailer_aliases}}', [
             'id' => $this->primaryKey(),
