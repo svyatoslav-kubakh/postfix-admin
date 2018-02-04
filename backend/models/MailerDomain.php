@@ -20,7 +20,7 @@ class MailerDomain extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'mailer_domains';
+        return '{{%mailer_domains}}';
     }
 
     /**

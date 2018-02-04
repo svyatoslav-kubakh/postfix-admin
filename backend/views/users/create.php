@@ -1,6 +1,7 @@
 <?php
 
 use yii\web\View;
+use backend\models\User;
 
 /**
  * @var View $this

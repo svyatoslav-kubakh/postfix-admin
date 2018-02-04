@@ -24,7 +24,7 @@ class MailerAccount extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'mailer_users';
+        return '{{%mailer_users}}';
     }
 
     /**

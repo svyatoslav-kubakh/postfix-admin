@@ -19,7 +19,7 @@ class MailerAlias extends ActiveRecord
      */
     public static function tableName()
     {
-        return 'mailer_aliases';
+        return '{{%mailer_aliases}}';
     }
 
     /**
