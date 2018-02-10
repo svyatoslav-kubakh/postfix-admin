@@ -11,7 +11,7 @@ use yii\db\ActiveRecord;
  * @property MailerAccount[] $accounts
  * @property MailerAlias[] $aliases
  */
-class MailerDomain extends ActiveRecord
+class MailerDomain extends ActiveRecord implements LoggableInterface
 {
     const DOMAIN_PATTERN = '/^(([A-Z0-9][A-Z0-9_-]*)(\.[A-Z0-9][A-Z0-9_-]*)+)(?::\d{1,5})?(?:$|[?\/#])/i';
 

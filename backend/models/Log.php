@@ -3,6 +3,18 @@ namespace backend\models;
 
 use common\models\Log as BaseLog;
 
+/**
+ * This is the model class for table "logs".
+ * @property int $id
+ * @property string $user
+ * @property string $user_ip
+ * @property int $item_type
+ * @property int $item_id
+ * @property int $action
+ * @property string $data_from
+ * @property string $data_to
+ * @property int $log_date
+ */
 class Log extends BaseLog
 {
     const ENTITY_MAILER_DOMAIN = 2;

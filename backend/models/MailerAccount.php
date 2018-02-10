@@ -13,7 +13,7 @@ use yii\db\ActiveQuery;
  * @property string $password
  * @property MailerDomain $domain
  */
-class MailerAccount extends ActiveRecord
+class MailerAccount extends ActiveRecord implements LoggableInterface
 {
     const PASSWORD_CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 

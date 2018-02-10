@@ -2,7 +2,7 @@
 namespace backend\models\query;
 
 use Yii;
-use yii\base\ModelEvent;
+use yii\db\ActiveRecord;
 use backend\models\Log;
 use backend\models\User;
 use backend\models\MailerDomain;
@@ -19,12 +19,15 @@ class LogQuery extends BaseQuery
         MailerAlias::class => Log::ENTITY_MAILER_ALIAS,
     ];
 
-    public function createLogEntity(ModelEvent $event)
+    /**
+     * @inheritdoc
+     */
+    public function createLogEntity(ActiveRecord $entity, $action, $safeOldData = true, $saveNewData = true)
     {
         /** @var User $identity */
         $identity = Yii::$app->user->identity;
         $ip = Yii::$app->request->getUserIP();
-        $log = parent::createLogEntity($event);
+        $log = parent::createLogEntity($entity, $action, $safeOldData, $saveNewData);
         $log->setAttributes([
             'user' => $identity->username,
             'user_ip' => ip2long($ip),

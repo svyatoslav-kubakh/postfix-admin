@@ -12,7 +12,7 @@ use yii\db\ActiveQuery;
  * @property string $destination
  * @property MailerDomain $domain
  */
-class MailerAlias extends ActiveRecord
+class MailerAlias extends ActiveRecord implements LoggableInterface
 {
     /**
      * @inheritdoc

@@ -3,7 +3,6 @@ namespace common\models\query;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\base\ModelEvent;
 use common\models\Log;
 use common\models\User;
 use yii\helpers\Json;
@@ -20,28 +19,24 @@ class LogQuery extends ActiveQuery
         User::class => Log::ENTITY_USER,
     ];
 
-    public function createLogEntity(ModelEvent $event)
+    /**
+     * @param ActiveRecord $entity
+     * @param int $action
+     * @param bool $safeOldData
+     * @param bool $saveNewData
+     * @return Log
+     */
+    public function createLogEntity(ActiveRecord $entity, $action, $safeOldData = true, $saveNewData = true)
     {
         $log = new Log();
-        /** @var ActiveRecord $entity */
-        $entity = $event->sender;
-//        var_dump($entity); exit;
         $log->setAttributes([
-            'action' => $this->getActionId($event->name),
+            'action' => $action,
             'item_type' => $this->getEntityType($entity),
             'item_id' => $entity->getPrimaryKey(),
-            'old_data' => Json::encode($entity->toArray()),
-            'new_data' => Json::encode($entity->getOldAttributes()),
+            'old_data' => $safeOldData ? Json::encode($entity->toArray()) : '',
+            'new_data' => $saveNewData ? Json::encode($entity->getOldAttributes()) : '',
         ]);
         return $log;
-    }
-
-    protected function getActionId($actionName)
-    {
-        if (isset($this->actionEventMap[$actionName])) {
-            return $this->actionEventMap[$actionName];
-        }
-        return Log::ACTION_OTHER;
     }
 
     protected function getEntityType(ActiveRecord $entity)

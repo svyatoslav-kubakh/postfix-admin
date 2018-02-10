@@ -1,11 +1,24 @@
 <?php
 
 use yii\base\Event;
-use backend\observers\MailerDomainObserver;
-use backend\models\MailerDomain;
+use yii\db\ActiveRecord;
+use backend\observers\LogObserver;
+use backend\models\LoggableInterface;
 
 Event::on(
-    MailerDomain::class,
-    MailerDomain::EVENT_BEFORE_UPDATE,
-    [MailerDomainObserver::class, 'observe']
+    LoggableInterface::class,
+    ActiveRecord::EVENT_AFTER_INSERT,
+    [LogObserver::class, 'observeCreate']
+);
+
+Event::on(
+    LoggableInterface::class,
+    ActiveRecord::EVENT_BEFORE_UPDATE,
+    [LogObserver::class, 'observeUpdate']
+);
+
+Event::on(
+    LoggableInterface::class,
+    ActiveRecord::EVENT_BEFORE_DELETE,
+    [LogObserver::class, 'observeDelete']
 );

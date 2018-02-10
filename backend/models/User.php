@@ -3,7 +3,7 @@ namespace backend\models;
 
 use common\models\User as BaseUser;
 
-class User extends BaseUser
+class User extends BaseUser implements LoggableInterface
 {
     const ADMIN_ID = 1;
 
