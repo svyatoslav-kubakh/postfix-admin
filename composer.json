@@ -1,0 +1,44 @@
+{
+    "name": "svyatoslav-kubakh/postfix-admin",
+    "description": "Postfix mailer admin interface",
+    "keywords": ["yii2", "mailer", "postfix", "admin"],
+    "authors": [
+        {
+            "name": "Svyatoslav Kubakh",
+            "homepage": "http://kubakh.name",
+            "role": "Developer"
+        }
+    ],
+    "type": "project",
+    "version": "0.0.1",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/svyatoslav-kubakh/postfix-admin/issues?state=open",
+        "source": "https://github.com/svyatoslav-kubakh/postfix-admin"
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.0.0",
+        "yiisoft/yii2": "~2.0.6",
+        "yiisoft/yii2-bootstrap": "~2.0.0",
+        "vlucas/phpdotenv": "^2.4",
+        "dmstr/yii2-adminlte-asset": "*",
+        "kartik-v/yii2-widget-datepicker": "^1.4"
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "~2.0.0",
+        "yiisoft/yii2-gii": "~2.0.0",
+        "yiisoft/yii2-faker": "~2.0.0",
+        "codeception/base": "^2.2.3",
+        "codeception/verify": "~0.3.1"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+.main-header .navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
+    font-size: 6em;
+}
+
+.grid-view .table td {
+    vertical-align: middle;
+}

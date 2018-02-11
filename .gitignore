@@ -1,6 +1,21 @@
-assets/*
-!assets/.gitignore
-protected/runtime/*
-!protected/runtime/.gitignore
-protected/data/*.db
-themes/classic/views/
+# Windows thumbnail cache
+Thumbs.db
+# Mac DS_Store Files
+.DS_Store
+# Phpstorm project files
+.idea
+
+# Composer itself is not needed
+composer.phar
+# Composer vendor dir
+/vendor
+# Composer index file
+/composer.lock
+
+# Phpunit itself is not needed
+phpunit.phar
+# Local phpunit config
+/phpunit.xml
+
+# Project file
+.env
