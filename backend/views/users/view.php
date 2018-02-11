@@ -17,7 +17,6 @@ use backend\models\Log;
  * @var ActiveDataProvider $membershipDataProvider
  * @var ActiveDataProvider $logsDataProvider
  * @var array $itemTypes
- * @var array $itemActions
  */
 
 $this->title = $model->username;
@@ -64,7 +63,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('/logs/_list', [
         'dataProvider' => $logsDataProvider,
         'itemTypes' => $itemTypes,
-        'itemActions' => $itemActions,
     ]); ?>
     <?=Button::widget([
         'link' => ['/logs', 'LogSearch' => ['user' => $model->username]],

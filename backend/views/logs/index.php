@@ -9,7 +9,6 @@ use backend\models\search\LogSearch;
  * @var LogSearch $searchModel
  * @var ActiveDataProvider $dataProvider
  * @var array $itemTypes
- * @var array $itemActions
  */
 
 $this->title = 'Logs';
@@ -19,5 +18,4 @@ echo $this->render('_list', [
     'searchModel' => $searchModel,
     'dataProvider' => $dataProvider,
     'itemTypes' => $itemTypes,
-    'itemActions' => $itemActions,
 ]);

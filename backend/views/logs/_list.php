@@ -8,12 +8,12 @@ use backend\models\Log;
 use backend\models\search\LogSearch;
 use backend\components\grid\ActionColumn;
 use backend\components\grid\EnumColumn;
+use backend\components\grid\LogActionColumn;
 
 /**
  * @var LogSearch $searchModel
  * @var ActiveDataProvider $dataProvider
  * @var array $itemTypes
- * @var array $itemActions
  */
 
 
@@ -44,7 +44,7 @@ use backend\components\grid\EnumColumn;
                 'class' => EnumColumn::class,
                 'attribute' => 'item_type',
                 'value' => function (Log $model) use ($itemTypes) {
-                    if ($itemTypes[$model->item_type]) {
+                    if (isset($itemTypes[$model->item_type])) {
                         return Html::a($itemTypes[$model->item_type], ['/' . $itemTypes[$model->item_type]]);
                     }
                     return '';
@@ -56,7 +56,7 @@ use backend\components\grid\EnumColumn;
             [
                 'attribute' => 'item_id',
                 'value' => function (Log $model) use ($itemTypes) {
-                    if ($itemTypes[$model->item_type]) {
+                    if (isset($itemTypes[$model->item_type])) {
                         return Html::a('#' . $model->item_id, [
                             '/' . $itemTypes[$model->item_type].'/view',
                             'id' => $model->item_id
@@ -69,25 +69,28 @@ use backend\components\grid\EnumColumn;
                 'format' => 'raw',
             ],
             [
-                'class' => EnumColumn::class,
+                'class' => LogActionColumn::class,
                 'attribute' => 'action',
-                'value' => function (Log $model) use ($itemActions) {
-                    if ($itemActions[$model->action]) {
-                        return Html::tag('span', $itemActions[$model->action], ['class' => 'label label-primary']);
-                    }
-                    return '';
-                },
-                'filter' => $itemActions,
                 'enableSorting' => false,
                 'format' => 'raw',
             ],
             [
                 'attribute' => 'user',
+                'value' => function (Log $log) {
+                    if ($log->user) {
+                        return $log->user;
+                    }
+                    return Html::tag('span', 'console', ['class' => 'label label-default']);
+                },
+                'format' => 'raw',
                 'enableSorting' => false,
             ],
             [
                 'attribute' => 'user_ip',
                 'value' => function (Log $log) {
+                    if (!$log->user_ip) {
+                        return '';
+                    }
                     return long2ip($log->user_ip);
                 },
                 'enableSorting' => false,

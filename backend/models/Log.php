@@ -17,6 +17,9 @@ use common\models\Log as BaseLog;
  */
 class Log extends BaseLog
 {
+    const ACTION_LOGIN = 4;
+    const ACTION_LOGOUT = 5;
+
     const ENTITY_MAILER_DOMAIN = 2;
     const ENTITY_MAILER_ACCOUNT = 3;
     const ENTITY_MAILER_ALIAS = 4;
@@ -43,6 +46,8 @@ class Log extends BaseLog
             self::ACTION_CREATE => 'create',
             self::ACTION_UPDATE => 'update',
             self::ACTION_DELETE => 'delete',
+            self::ACTION_LOGIN => 'login',
+            self::ACTION_LOGOUT => 'logout',
         ];
     }
 

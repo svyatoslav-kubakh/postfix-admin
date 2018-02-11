@@ -4,12 +4,13 @@ use yii\web\View;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use backend\models\Log;
+use backend\components\grid\LogDataColumn;
+use backend\components\grid\LogActionColumn;
 
 /**
  * @var View $this
  * @var Log $model
  * @var array $itemTypes
- * @var array $itemActions
  */
 
 $this->title = 'Log event #' . $model->id;
@@ -45,9 +46,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
             ],
             [
                 'attribute' => 'action',
-                'value' => isset($itemActions[$model->action])
-                    ? Html::tag('span', $itemActions[$model->action], ['class' => 'label label-primary'])
-                    : '',
+                'value' => (new LogActionColumn(['attribute'=>'action']))->getDataCellValue($model),
                 'format' => 'raw',
             ],
             'user',
@@ -57,12 +56,12 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
             ],
             [
                 'attribute' => 'old_data',
-                'value' => Html::tag('pre', $model->old_data),
+                'value' => (new LogDataColumn(['attribute'=>'old_data']))->getDataCellValue($model),
                 'format' => 'raw',
             ],
             [
                 'attribute' => 'new_data',
-                'value' => Html::tag('pre', $model->new_data),
+                'value' => (new LogDataColumn(['attribute'=>'new_data']))->getDataCellValue($model),
                 'format' => 'raw',
             ],
         ],

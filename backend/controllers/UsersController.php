@@ -45,14 +45,11 @@ class UsersController extends Controller
     public function actionView($id)
     {
         $user = $this->findModel($id);
-
         $logsSearchModel = new LogSearch();
         $logsDataProvider = $logsSearchModel->search([
-            'LogSearch' => [
-                'user' => $user->username,
-            ],
+            'LogSearch' => ['user' => $user->username],
         ]);
-
+        $logsDataProvider->pagination = false;
         return $this->render('view', [
             'model' => $user,
             'logsDataProvider' => $logsDataProvider,

@@ -2,9 +2,11 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\components\Controller;
 use yii\filters\VerbFilter;
 use common\models\LoginForm;
+use backend\components\Controller;
+use backend\models\Log;
+use backend\models\User;
 
 /**
  * Site controller
@@ -51,7 +53,6 @@ class SiteController extends Controller
 
     /**
      * Displays homepage.
-     *
      * @return string
      */
     public function actionIndex()
@@ -61,7 +62,6 @@ class SiteController extends Controller
 
     /**
      * Login action.
-     *
      * @return string
      */
     public function actionLogin()
@@ -72,6 +72,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $this->logUserAction(Log::ACTION_LOGIN);
             return $this->goBack();
         } else {
             return $this->render('login', [
@@ -82,12 +83,25 @@ class SiteController extends Controller
 
     /**
      * Logout action.
-     *
      * @return string
      */
     public function actionLogout()
     {
         Yii::$app->user->logout();
+        $this->logUserAction(Log::ACTION_LOGOUT);
         return $this->goHome();
+    }
+
+    /**
+     * @param string $action
+     * @param bool $saveOldData
+     * @param bool $saveNewData
+     */
+    protected function logUserAction($action, $saveOldData = false, $saveNewData = false)
+    {
+        $user = new User(Yii::$app->user->identity);
+        Log::find()
+            ->createLogEntity($user, $action, $saveOldData, $saveNewData)
+            ->save();
     }
 }
