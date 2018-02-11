@@ -18,8 +18,9 @@ class LogSearch extends Log
     public function rules()
     {
         return [
-            [['id', 'user_ip', 'item_type', 'item_id', 'action'], 'integer'],
+            [['id', 'item_type', 'item_id', 'action'], 'integer'],
             [['log_date'], 'date', 'format' => 'php:Y-m-d'],
+            [['user_ip'], 'ip'],
             [['user'], 'string'],
         ];
     }
@@ -37,35 +38,34 @@ class LogSearch extends Log
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ],
+            ],
         ]);
 
         $this->load($params);
-
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_ip' => $this->user_ip,
+            'user_ip' => $this->user_ip ? ip2long($this->user_ip) : null,
             'item_type' => $this->item_type,
             'item_id' => $this->item_id,
             'action' => $this->action,
-        ])
-        ->andFilterWhere([
-            '>=',
-            'log_date',
-            $this->log_date ? strtotime($this->log_date . ' 00:00:00') : null
-        ])
-        ->andFilterWhere([
-            '<=',
-            'log_date',
-            $this->log_date ? strtotime($this->log_date . ' 23:59:59') : null
-        ])
-        ->andFilterWhere(['like', 'user', $this->user]);
+            'user' => $this->user,
+        ]);
+        if ($this->log_date) {
+            $query->andFilterWhere([
+                'BETWEEN',
+                'log_date',
+                strtotime($this->log_date . ' 00:00:00'),
+                strtotime($this->log_date . ' 23:59:59'),
+            ]);
+        }
 
         return $dataProvider;
     }

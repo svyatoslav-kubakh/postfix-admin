@@ -61,4 +61,15 @@ class LogsController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function render($view, $params = [])
+    {
+        return parent::render($view, $params + [
+                'itemTypes' => Log::listItemTypes(),
+                'itemActions' => Log::listActions(),
+            ]);
+    }
 }

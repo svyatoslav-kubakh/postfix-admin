@@ -1,42 +1,70 @@
 <?php
 
+use yii\web\View;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use backend\models\Log;
 
-/* @var $this yii\web\View */
-/* @var $model backend\models\Log */
+/**
+ * @var View $this
+ * @var Log $model
+ * @var array $itemTypes
+ * @var array $itemActions
+ */
 
-$this->title = $model->id;
+$this->title = 'Log event #' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Logs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = '#' . $model->id;
 ?>
 <div class="log-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            [
+                'attribute' => 'log_date',
+                'value' => Html::tag('span', '', ['class' => "glyphicon glyphicon-time"]) . ' ' .
+                    date('Y-m-d H:i', $model->log_date),
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'item_type',
+                'value' => isset($itemTypes[$model->item_type])
+                    ? Html::a($itemTypes[$model->item_type], ['/' . $itemTypes[$model->item_type]])
+                    : '',
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'item_id',
+                'value' => isset($itemTypes[$model->item_type])
+                    ? Html::a('#' . $model->item_id, [
+                        '/' . $itemTypes[$model->item_type].'/view',
+                        'id' => $model->item_id
+                    ])
+                    : '',
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'action',
+                'value' => isset($itemActions[$model->action])
+                    ? Html::tag('span', $itemActions[$model->action], ['class' => 'label label-primary'])
+                    : '',
+                'format' => 'raw',
+            ],
             'user',
-            'user_ip',
-            'item_type',
-            'item_id',
-            'action',
-            'old_data:ntext',
-            'new_data:ntext',
-            'log_date',
+            [
+                'attribute' => 'user_ip',
+                'value' => long2ip($model->user_ip),
+            ],
+            [
+                'attribute' => 'old_data',
+                'value' => Html::tag('pre', $model->old_data),
+                'format' => 'raw',
+            ],
+            [
+                'attribute' => 'new_data',
+                'value' => Html::tag('pre', $model->new_data),
+                'format' => 'raw',
+            ],
         ],
     ]) ?>
 

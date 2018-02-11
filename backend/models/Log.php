@@ -22,6 +22,31 @@ class Log extends BaseLog
     const ENTITY_MAILER_ALIAS = 4;
 
     /**
+     * @return array
+     */
+    public static function listItemTypes()
+    {
+        return [
+            self::ENTITY_USER => 'users',
+            self::ENTITY_MAILER_DOMAIN => 'mailer-domains',
+            self::ENTITY_MAILER_ACCOUNT => 'mailer-accounts',
+            self::ENTITY_MAILER_ALIAS => 'mailer-aliases',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public static function listActions()
+    {
+        return [
+            self::ACTION_CREATE => 'create',
+            self::ACTION_UPDATE => 'update',
+            self::ACTION_DELETE => 'delete',
+        ];
+    }
+
+    /**
      * @return query\LogQuery
      */
     public static function find()
@@ -37,7 +62,7 @@ class Log extends BaseLog
         return [
             'id' => 'ID',
             'user' => 'User',
-            'user_ip' => 'User Ip',
+            'user_ip' => 'IP',
             'item_type' => 'Item Type',
             'item_id' => 'Item ID',
             'action' => 'Action',
