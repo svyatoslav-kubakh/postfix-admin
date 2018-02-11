@@ -68,8 +68,8 @@ class LogsController extends Controller
     public function render($view, $params = [])
     {
         return parent::render($view, $params + [
-                'itemTypes' => Log::listItemTypes(),
-                'itemActions' => Log::listActions(),
-            ]);
+            'itemTypes' => Log::listItemTypes(),
+            'itemActions' => Log::listActions(),
+        ]);
     }
 }

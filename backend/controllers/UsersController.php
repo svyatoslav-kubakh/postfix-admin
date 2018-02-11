@@ -2,8 +2,10 @@
 namespace backend\controllers;
 
 use Yii;
+use backend\models\Log;
 use backend\models\User;
 use backend\models\search\UserSearch;
+use backend\models\search\LogSearch;
 use backend\components\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -42,8 +44,20 @@ class UsersController extends Controller
      */
     public function actionView($id)
     {
+        $user = $this->findModel($id);
+
+        $logsSearchModel = new LogSearch();
+        $logsDataProvider = $logsSearchModel->search([
+            'LogSearch' => [
+                'user' => $user->username,
+            ],
+        ]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $user,
+            'logsDataProvider' => $logsDataProvider,
+            'itemTypes' => Log::listItemTypes(),
+            'itemActions' => Log::listActions(),
         ]);
     }
 
