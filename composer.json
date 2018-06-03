@@ -1,5 +1,5 @@
 {
-    "name": "svyatoslav-kubakh/postfix-admin",
+    "name": "ksar/postfix-admin",
     "description": "Postfix mailer admin interface",
     "keywords": ["yii2", "mailer", "postfix", "admin"],
     "authors": [

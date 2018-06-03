@@ -1,6 +1,6 @@
 # postfix-admin
 
-[![version][version-badge]][CHANGELOG]
+[![version][VERSION-BADGE]][CHANGELOG]
 
 Basic admin interface for postfix service with settings hosted in mysql
 
@@ -47,4 +47,4 @@ http://www.postfix.org/MYSQL_README.html
 
 
 [CHANGELOG]: ./CHANGELOG.md
-[version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[VERSION-BADGE]: https://img.shields.io/github/release/svyatoslav-kubakh/postfix-admin.svg
