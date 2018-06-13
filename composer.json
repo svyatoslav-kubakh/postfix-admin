@@ -10,8 +10,7 @@
         }
     ],
     "type": "project",
-    "version": "0.0.1",
-    "license": "BSD-3-Clause",
+    "license": "BSD-2-Clause",
     "support": {
         "issues": "https://github.com/svyatoslav-kubakh/postfix-admin/issues?state=open",
         "source": "https://github.com/svyatoslav-kubakh/postfix-admin"
