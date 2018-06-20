@@ -49,5 +49,5 @@ http://www.postfix.org/MYSQL_README.html
 
 [release]: https://github.com/svyatoslav-kubakh/postfix-admin/releases
 [release-badge]: https://img.shields.io/github/release/svyatoslav-kubakh/postfix-admin.svg
-[license]: https://opensource.org/licenses/BSD-2-Clause
-[license-badge]: https://img.shields.io/badge/License-BSD%202--Clause-orange.svg
+[license]: ./LICENSE
+[license-badge]: https://img.shields.io/badge/license-BSD%202--Clause-lightgrey.svg
