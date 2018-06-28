@@ -1,0 +1,36 @@
+version: '2'
+services:
+    db:
+        image: mysql:5.7
+        ports:
+            - "3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: mailer
+            MYSQL_USER: mailer
+            MYSQL_PASSWORD: mailer
+    cli:
+        build: docker/cli
+        tty: true
+        volumes:
+            - .:/app
+        links:
+            - db
+    fpm:
+        build: docker/fpm
+        expose:
+            - "9000"
+        volumes_from:
+            - cli
+        links:
+            - db
+    nginx:
+        image: nginx:alpine
+        ports:
+            - "8080:80"
+        volumes_from:
+            - cli
+        volumes:
+            - ./docker/nginx/site.conf:/etc/nginx/conf.d/default.conf
+        links:
+            - fpm
