@@ -11,7 +11,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
-            'baseUrl' => getenv('BASE_URL'),
+            'baseUrl' => Yii::getAlias('@web'),
             'cookieValidationKey' => getenv('COOKIE_VALIDATION_KEY'),
         ],
         'view' => [
