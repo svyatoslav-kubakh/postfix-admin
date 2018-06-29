@@ -17,13 +17,13 @@ class M180204190759Logs extends Migration
         $this->createTable('{{%logs}}', [
             'id' => $this->primaryKey(),
             'user' => $this->string()->notNull(),
-            'user_ip' => $this->integer()->notNull(),
-            'item_type' => $this->integer()->notNull(),
-            'item_id' => $this->integer()->notNull(),
-            'action' => $this->integer()->notNull(),
+            'user_ip' => $this->integer()->unsigned()->notNull(),
+            'item_type' => $this->integer()->unsigned()->notNull(),
+            'item_id' => $this->integer()->unsigned()->notNull(),
+            'action' => $this->tinyInteger()->unsigned()->notNull(),
             'old_data' => $this->text(),
             'new_data' => $this->text(),
-            'log_date' => $this->integer()->notNull(),
+            'log_date' => $this->integer()->unsigned()->notNull(),
         ]);
         $this->createIndex('idx_key_log_user', '{{%logs}}', ['user']);
         $this->createIndex('idx_key_log_action', '{{%logs}}', ['action']);
