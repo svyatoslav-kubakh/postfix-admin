@@ -5,4 +5,4 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 
 WORKDIR /app
 
-CMD ["docker/cli/setup.sh"]
+CMD ["sh", "docker/cli/setup.sh"]
