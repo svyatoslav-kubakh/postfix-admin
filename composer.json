@@ -25,7 +25,8 @@
         "kartik-v/yii2-widget-datepicker": ">=1.4"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.0.0"
+        "yiisoft/yii2-debug": "~2.0.0",
+        "squizlabs/php_codesniffer": "^3.3"
     },
     "config": {
         "process-timeout": 1800
