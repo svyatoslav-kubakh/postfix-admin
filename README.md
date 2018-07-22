@@ -2,6 +2,7 @@
 
 [![version][release-badge]][release]
 [![license][license-badge]][license]
+[![composer.lock available][composer-lock-badge]][packagist]
 
 Basic admin interface for postfix service with settings hosted in mysql
 
@@ -51,3 +52,5 @@ http://www.postfix.org/MYSQL_README.html
 [release-badge]: https://img.shields.io/github/release/svyatoslav-kubakh/postfix-admin.svg
 [license]: ./LICENSE
 [license-badge]: https://img.shields.io/badge/license-BSD%202--Clause-lightgrey.svg
+[packagist]: https://packagist.org/packages/ksar/postfix-admin
+[composer-lock-badge]: https://poser.pugx.org/ksar/postfix-admin/composerlock
