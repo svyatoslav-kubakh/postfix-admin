@@ -3,7 +3,7 @@
 [![version][release-badge]][release]
 [![license][license-badge]][license]
 [![composer.lock available][composer-lock-badge]][packagist]
-![build-status][travis-build-badge]
+![build-status][travis-build-badge]][travis-history]
 
 Basic admin interface for postfix service with settings hosted in mysql
 
@@ -58,4 +58,5 @@ http://www.postfix.org/MYSQL_README.html
 [license-badge]: https://img.shields.io/badge/license-BSD%202--Clause-lightgrey.svg
 [packagist]: https://packagist.org/packages/ksar/postfix-admin
 [composer-lock-badge]: https://poser.pugx.org/ksar/postfix-admin/composerlock
+[travis-history]: https://travis-ci.org/svyatoslav-kubakh/postfix-admin
 [travis-build-badge]: https://travis-ci.org/svyatoslav-kubakh/postfix-admin.svg?branch=master
