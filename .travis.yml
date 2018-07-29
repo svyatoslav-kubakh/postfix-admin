@@ -1,0 +1,11 @@
+language: php
+sudo: false
+php: 7.2
+cache:
+  bundler: true
+  directories:
+    - $HOME/.composer
+jobs:
+  include:
+    - stage: PSR-check
+      script: vendor/bin/phpcs --ignore=vendor --extensions=php --standard=PSR2 . - Run PSR checks
