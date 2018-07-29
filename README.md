@@ -47,6 +47,9 @@ http://www.postfix.org/MYSQL_README.html
 * `console/yii users/enable` - Enable user
 * `console/yii users/passwd` - Change password
 
+## Development routines
+* `vendor/bin/phpcs --ignore=vendor --extensions=php --standard=PSR2 .` - Run PSR checks
+
 
 [release]: https://github.com/svyatoslav-kubakh/postfix-admin/releases
 [release-badge]: https://img.shields.io/github/release/svyatoslav-kubakh/postfix-admin.svg

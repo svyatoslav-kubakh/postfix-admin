@@ -9,8 +9,6 @@ Thumbs.db
 composer.phar
 # Composer vendor dir
 /vendor
-# Composer index file
-/composer.lock
 
 # Phpunit itself is not needed
 phpunit.phar
