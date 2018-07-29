@@ -3,7 +3,7 @@
 [![version][release-badge]][release]
 [![license][license-badge]][license]
 [![composer.lock available][composer-lock-badge]][packagist]
-[![travis-build-badge][license-badge]][travis-history]
+[![build-status][travis-build-badge]][travis-history]
 
 Basic admin interface for postfix service with settings hosted in mysql
 
