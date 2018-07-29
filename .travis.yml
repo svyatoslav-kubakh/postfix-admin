@@ -8,4 +8,5 @@ cache:
 jobs:
   include:
     - stage: PSR-check
+      before_script: composer install  --dev
       script: vendor/bin/phpcs --ignore=vendor --extensions=php --standard=PSR2 .
