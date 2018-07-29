@@ -8,4 +8,4 @@ cache:
 jobs:
   include:
     - stage: PSR-check
-      script: vendor/bin/phpcs --ignore=vendor --extensions=php --standard=PSR2 . - Run PSR checks
+      script: vendor/bin/phpcs --ignore=vendor --extensions=php --standard=PSR2 .
