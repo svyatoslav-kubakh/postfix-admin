@@ -1,0 +1,9 @@
+language: php
+sudo: false
+php:
+  - 7.2
+jobs:
+  include:
+    - stage: PSR-check
+      before_script: composer install  --dev
+      script: php vendor/bin/phpcs --ignore=vendor --extensions=php --standard=PSR2 .
