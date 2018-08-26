@@ -2,9 +2,9 @@
 
 [![version][release-badge]][release]
 [![license][license-badge]][license]
+[![Scrutinizer Code Quality][scrutinizer-ci-badge]][scrutinizer-ci]
 [![composer.lock available][composer-lock-badge]][packagist]
 [![build-status][travis-build-badge]][travis-history]
-[![Scrutinizer Code Quality][scrutinizer-ci-badge]][scrutinizer-ci]
 
 Basic admin interface for postfix service with settings hosted in mysql
 
