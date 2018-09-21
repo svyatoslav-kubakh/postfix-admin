@@ -2,6 +2,7 @@
 
 [![version][release-badge]][release]
 [![license][license-badge]][license]
+[![Scrutinizer Code Quality][scrutinizer-ci-badge]][scrutinizer-ci]
 [![composer.lock available][composer-lock-badge]][packagist]
 [![build-status][travis-build-badge]][travis-history]
 
@@ -60,3 +61,5 @@ http://www.postfix.org/MYSQL_README.html
 [composer-lock-badge]: https://poser.pugx.org/ksar/postfix-admin/composerlock
 [travis-history]: https://travis-ci.org/svyatoslav-kubakh/postfix-admin
 [travis-build-badge]: https://travis-ci.org/svyatoslav-kubakh/postfix-admin.svg?branch=master
+[scrutinizer-ci-badge]: https://scrutinizer-ci.com/g/svyatoslav-kubakh/postfix-admin/badges/quality-score.png?b=master
+[scrutinizer-ci]: https://scrutinizer-ci.com/g/svyatoslav-kubakh/postfix-admin/?branch=master
